@@ -1,8 +1,11 @@
-from typing import Callable
-
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
-from models import BaseModel
+
+from api.config import settings
+from api.models import BaseModel
+
+engine = create_engine(settings.DATABASE_URL)
+DBSession = sessionmaker(bind=engine)
 
 
 def init_db(db_url: str) -> Session:
@@ -12,12 +15,9 @@ def init_db(db_url: str) -> Session:
     return DBSession
 
 
-def db_getter(DBSession) -> Callable[[], Session]:
-    def get_db() -> Session:
-        db = DBSession()
-        try:
-            yield db
-        finally:
-            db.close()
-
-    return get_db
+def get_db() -> Session:
+    db = DBSession()
+    try:
+        yield db
+    finally:
+        db.close()
