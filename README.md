@@ -18,16 +18,26 @@ export DATABASE_URL="sqlite:///./sqlite.db"
 # For other environments:
 # export DATABASE_URL = "postgresql://user:password@dbserver/db"
 
-python api.py init
+python manage.py init-db
 ```
-
+### Help
+```commandline
+python manage.py --help
+```
 ### Running the service
 
 #### API
 
 ```
 export DATABASE_URL=...
-uvicorn api:app --reload
+python manage.py run
+```
+
+#### Scripts
+
+```commandline
+python manage.py start-todays-trips
+python manage.py end-yesterdays-trips
 ```
 
 #### Worker
