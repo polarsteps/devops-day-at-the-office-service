@@ -20,10 +20,13 @@ export DATABASE_URL="sqlite:///./sqlite.db"
 
 python manage.py init-db
 ```
+
 ### Help
+
 ```commandline
 python manage.py --help
 ```
+
 ### Running the service
 
 #### API
@@ -38,11 +41,4 @@ python manage.py run
 ```commandline
 python manage.py start-todays-trips
 python manage.py end-yesterdays-trips
-```
-
-#### Worker
-
-```
-export DATABASE_URL=...
-python worker.py
 ```
