@@ -14,7 +14,7 @@ router = APIRouter(prefix="/trips")
 
 @router.post("/")
 async def create_trip(trip_data: TripCreate, db: Session = Depends(get_db)) -> TripInDB:
-    params = trip_data.dict()
+    params = trip_data.model_dump()
     if params["start_time"].date() == datetime.now(timezone.utc).date():
         params["ongoing"] = True
     trip = Trip(**params)
