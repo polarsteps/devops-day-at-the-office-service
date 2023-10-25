@@ -10,7 +10,7 @@ This is a very simple service for querying and saving trips.
 
 ### Setting up
 
-```
+```bash
 pip install -r requirements.txt
 
 # For local test environments:
@@ -23,7 +23,7 @@ python manage.py init-db
 
 ### Help
 
-```commandline
+```bash
 python manage.py --help
 ```
 
@@ -31,14 +31,24 @@ python manage.py --help
 
 #### API
 
-```
+```bash
 export DATABASE_URL=...
 python manage.py run
 ```
 
 #### Scripts
 
-```commandline
+```bash
 python manage.py start-todays-trips
 python manage.py end-yesterdays-trips
+```
+
+
+### Testing
+
+
+```bash
+pip install -r requirements.dev.txt
+
+pytest
 ```

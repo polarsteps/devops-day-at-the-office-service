@@ -9,8 +9,9 @@ class TripCreate(BaseModel):
     end_time: datetime
 
 
-class TripUpdate(BaseModel):
-    name: str
+class TripUpdate(TripCreate):
     ongoing: bool
-    start_time: datetime
-    end_time: datetime
+
+
+class TripInDB(TripUpdate):
+    id: int
