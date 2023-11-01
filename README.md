@@ -36,6 +36,8 @@ python manage.py run
 
 #### Scripts
 
+These two scripts need to be run once a day:
+
 ```bash
 python manage.py start-todays-trips
 python manage.py end-yesterdays-trips
