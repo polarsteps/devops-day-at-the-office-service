@@ -17,8 +17,6 @@ pip install -r requirements.txt
 export DATABASE_URL="sqlite:///./sqlite.db"
 # For other environments:
 # export DATABASE_URL = "postgresql://user:password@dbserver/db"
-
-python manage.py init-db
 ```
 
 ### Help
@@ -38,6 +36,8 @@ python manage.py run
 
 #### Scripts
 
+These two scripts need to be run once a day:
+
 ```bash
 python manage.py start-todays-trips
 python manage.py end-yesterdays-trips
@@ -46,9 +46,9 @@ python manage.py end-yesterdays-trips
 
 ### Testing
 
+For tests, the `DATABASE_URL` is hardcoded in tests to use a sqlite database.
+
 
 ```bash
-pip install -r requirements.dev.txt
-
 pytest
 ```
