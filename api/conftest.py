@@ -5,7 +5,7 @@ from fastapi.testclient import TestClient
 
 @pytest.fixture(scope="session", autouse=True)
 def set_env():
-    os.environ["DATABASE_URL"] = "sqlite:///./sqlite.db"
+    os.environ["DATABASE_URL"] = "sqlite:///./test.db"
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -13,6 +13,7 @@ def init_db(set_env):
     from api.models import BaseModel
     from api.database import engine
 
+    BaseModel.metadata.drop_all(engine)
     BaseModel.metadata.create_all(engine)
 
 
