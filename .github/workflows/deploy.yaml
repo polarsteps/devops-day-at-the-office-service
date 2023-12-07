@@ -1,0 +1,35 @@
+on:
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        required: true
+jobs:
+  deploy:
+    name: terraform
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_DEFAULT_REGION }}
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Terraform Init
+        run: terraform init -backend-config="bucket=${{ vars.TF_VAR_TERRAFORM_BUCKET }}" -backend-config="key=${{ github.repository }}/state.json" -upgrade -reconfigure
+        working-directory: misc/infrastructure/terraform
+
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan -var "deployment_trigger=${{ github.sha }}"
+        working-directory: misc/infrastructure/terraform
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve tfplan
+        working-directory: misc/infrastructure/terraform

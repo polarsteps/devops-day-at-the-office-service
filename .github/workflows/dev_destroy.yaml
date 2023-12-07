@@ -1,0 +1,20 @@
+name: Dev Env Destroy
+on:
+  workflow_dispatch:
+    inputs:
+      env:
+        description: "Development Environment"
+        required: true
+        type: choice
+        options:
+          - ivan_kiselev_sandbox
+jobs:
+  build:
+    name: Destroy
+    uses: ./.github/workflows/destroy.yaml
+    permissions:
+      id-token: write
+      contents: read
+      packages: read
+    with:
+      environment: ${{ inputs.env }}

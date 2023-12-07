@@ -1,0 +1,21 @@
+on:
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        required: true
+      lambda-name:
+        type: string
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: build-${{ inputs.lambda-name }}
+    container:
+      image: python:3.12
+    environment: ${{ inputs.environment }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build function
+        run: pip install -r requirements.txt
