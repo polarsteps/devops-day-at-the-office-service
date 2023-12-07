@@ -1,0 +1,3 @@
+module "trips" {
+  source = "./trips"
+}
