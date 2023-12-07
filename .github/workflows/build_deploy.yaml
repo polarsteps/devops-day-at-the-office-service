@@ -1,0 +1,27 @@
+on:
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        required: true
+jobs:
+  build:
+    name: Build
+    uses: ./.github/workflows/build.yaml
+    strategy:
+      matrix:
+        lambda: ["post-trips", "get-trips-id", "post-trips-id"]
+    with:
+      environment: ${{ inputs.environment }}
+      lambda-name: ${{ matrix.lambda }}
+    permissions:
+      id-token: write
+      contents: read
+      packages: read
+
+  deploy:
+    name: Deploy Infrastructure
+    uses: ./.github/workflows/deploy.yaml
+    needs: build
+    with:
+      environment: ${{ inputs.environment }}
